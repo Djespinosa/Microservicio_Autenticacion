@@ -1,14 +1,20 @@
 import express from 'express'
 import morgan from 'morgan'
 
-const app = express()
+import { createRoles } from './libs/initialSetUp';
 
-app.use(morgan('dev'))
+import authRoutes from './routes/auth.routes' 
+
+const app = express();
+createRoles();
+
+app.use(morgan('dev'));
+app.use(express.json());
 
 app.get('/', (req, res) =>{
     res.json('Welcome')
-})
+});
 
+app.use('/auth', authRoutes);
 
-
-export default app
+export default app;
